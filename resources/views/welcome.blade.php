@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE json_decode>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
