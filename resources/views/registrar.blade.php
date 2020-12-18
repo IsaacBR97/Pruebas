@@ -22,6 +22,11 @@
         <input id="a_materno" type="text" name="a_materno" class="form-control">
     </div>
     <div class="form-group">
+        <label for="email">Correo Electrónico</label>
+        <input id="email" type="text" name="email" class="form-control input-lg">
+        <span id="error_email"></span>
+    </div>
+    <div class="form-group">
         <label for="imagen">Imagen del usuario:</label>
         <input type="file" name="imagen" id="imagen">
     </div>
@@ -35,4 +40,45 @@
     </div>
     <input type="submit" class="btn btn-primary" value="Registrarse">    
 </form>
+
+<script>
+$(document).ready(function(){
+ $('#email').blur(function(){
+  var error_email = '';
+  var email = $('#email').val();
+  var _token = $('input[name="_token"]').val();
+  var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+  if(!filter.test(email))
+  {    
+   $('#error_email').html('<label class="text-danger">Invalid Email</label>');
+   $('#email').addClass('has-error');
+   $('#register').attr('disabled', 'disabled');
+  }
+  else
+  {
+   $.ajax({
+    url:"{{ route('email_available.check') }}",
+    method:"POST",
+    data:{email:email, _token:_token},
+    success:function(result)
+    {
+     if(result == 'unique')
+     {
+      $('#error_email').html('<label class="text-success">Email Available</label>');
+      $('#email').removeClass('has-error');
+      $('#register').attr('disabled', false);
+     }
+     else
+     {
+      $('#error_email').html('<label class="text-danger">Email not Available</label>');
+      $('#email').addClass('has-error');
+      $('#register').attr('disabled', 'disabled');
+     }
+    }
+   })
+  }
+ });
+});
+</script>
+
 @endsection

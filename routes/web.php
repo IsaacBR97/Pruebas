@@ -17,6 +17,7 @@ Route::get('tablero','IncioControler@tablero');
 Route::get('salir'        , 'AutenticarControler@salir');
 Route::get('autenticar'        , 'AutenticarControler@autenticar');
 Route::get('registrar'        , 'AutenticarControler@registrar');
+Route::post('revisar'        , 'AutenticarControler@check')->name('email_available.check');
 Route::post('agregar'        , 'AutenticarControler@agregar');
 Route::post('validar'        , 'AutenticarControler@validar');
 Route::get('listar_por_categoria/{categoria_id}','ExploracionControler@listar_por');
@@ -43,3 +44,4 @@ Route::put('_Usuarios/{id}','AjaxControler@updateUsuario');
 Route::post('_Categorias','AjaxControler@storeCategoria');
 Route::delete('_Categorias/{id}','AjaxControler@destroyCategoria');
 
+//

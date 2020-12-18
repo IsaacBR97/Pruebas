@@ -64,6 +64,24 @@ class AutenticarControler extends Controller
             }else
                 return redirect('/autenticar')->with('error', 'Usuario no registrado');
         }
-        
+    }
+    
+    function check(Request $request)
+    {
+     if($request->get('email'))
+     {
+      $email = $request->get('email');
+      $data = Usuario::table("usuario")
+       ->where('email', $email)
+       ->count();
+      if($data > 0)
+      {
+       echo 'not_unique';
+      }
+      else
+      {
+       echo 'unique';
+      }
+     }
     }
 }
